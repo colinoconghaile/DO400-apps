@@ -1,15 +1,20 @@
 pipeline {
     agent { node { label 'maven' } }
     options { skipDefaultCheckout true }
-        stages {
-            stage('Checkout') {
-                steps {
-                    git branch: 'notifications',
-                    url: ulator') {
-                        sh './mvnw clean test'
-                    }
-                }
+    stages {
+        stage('Checkout') {
+            steps {
+                sendNotification('started', 'team@example.com')
+                git branch: 'notifications',
+                url: 'https://github.com/colinoconghaile/DO400-apps'
             }
         }
+    }
+}
+
+void sendNotification(String action, String email) {
+    mail to: "${email}",
+       subject: "Pipeline ${action}: ${currentBuild.fullDisplayName}",
+       body: "The following pipeline ${action}: ${env.BUILD_URL}"
     }
 }
