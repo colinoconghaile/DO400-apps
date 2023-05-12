@@ -6,7 +6,14 @@ pipeline {
             steps {
                 sendNotification('started', 'team@example.com')
                 git branch: 'notifications',
-                url: 'https://github.com/colinoconghaile/DO400-apps'
+                    url: 'https://github.com/colinoconghaile/DO400-apps'
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('simple-calculator') {
+                    sh './mvnw clean test'
+                }
             }
         }
     }
