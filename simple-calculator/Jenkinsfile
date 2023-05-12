@@ -1,0 +1,15 @@
+pipeline {
+    agent { node { label 'maven' } }
+    options { skipDefaultCheckout true }
+        stages {
+            stage('Checkout') {
+                steps {
+                    git branch: 'notifications',
+                    url: ulator') {
+                        sh './mvnw clean test'
+                    }
+                }
+            }
+        }
+    }
+}
